@@ -117,6 +117,8 @@ public class ShiftableField
     public ShiftableField() { field = new int[4, 4]; }
     public ShiftableField(int[,] _field)
     { field = _field; }
+    
+    
     //
     // Сдвигает всю матрицу
     //
@@ -216,6 +218,23 @@ public class ShiftableField
 
 public class Converter
 {
+    public static int[,] GetTextToShiftableFieldField(string[] lines)
+    {
+        int[,] result = new int[4, 4];
+
+        for (int y = 0; y < 4; y++)
+        {
+            // Разбиваем строку на массив int и присваиваем значения цифрам под соответствующими координатами в матрице initial_field
+            int[] line_nums_array = Array.ConvertAll(lines[y].Split(' '), s => int.Parse(s));
+            for (int x = 0; x < 4; x++)
+            {
+                result[x, y] = line_nums_array[x];
+            }
+        }
+
+        return result;
+    }
+
     public static string GetMatrixInText(int[,] field)
     // Превращает матрицу int в одну понятную string
     {
