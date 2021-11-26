@@ -30,11 +30,7 @@ using (StreamReader sr = new StreamReader(path_in, System.Text.Encoding.Default)
 
 ShiftableField field = new ShiftableField(initial_field);
 //Console.WriteLine("START FIELD:\n" + field.GetMatrixInText(field.Field));
-foreach (string dir in move_dirs)
-{
-    field.Field = field.MoveFieldInDir(field.Field, dir);
-    //Console.WriteLine(dir + "\n" + GetMatrixInText(field.Field));
-}
+field.Field = field.ShiftFieldInDirections(field.Field, move_dirs);
 //Console.WriteLine('\n');
 
 #endregion 
@@ -52,63 +48,6 @@ using (StreamWriter sw = new StreamWriter(path_out, false, System.Text.Encoding.
 
 #region МЕТОДЫ
 
-// Неиспользуемый метод. Первый прототип ShiftLine()
-// Работает только для сдвига строки влево.
-int[] Obsolete_ShiftLineToLeft(int[] nums)
-{
-    // Самый главный метод программы - реализует логику сдвига
-    // Сдвигает полученный массив влево. Рассчитано на то, что его перевернут нужным образом при вызове
-
-    //bool[] busy = new bool[nums.Length];
-    bool[] blocked = new bool[nums.Length];
-    //for (int i = 0; i < nums.Length; i++)
-    //{
-    //    if (nums[i] > 0) { busy[i] = true; }
-    //}
-    // busy будет использоваться для понимания, где можно проводить операции, а где уже нельзя
-
-    for (int x = 0; x < 4; x++)
-    {
-        switch (x)
-        {
-            case 0:
-                continue;
-            default:
-                if (nums[x] == 0) { continue; }
-                else
-                {
-                    int replaced_pos = x;
-                    for (int i = 1; i <= x; i++)
-                    {
-                        //if (!busy[x-i] | nums[x-i] == nums[x])
-                        if ( (nums[x - i] == 0) | (nums[x - i] == nums[x] && !blocked[x - i]) )
-                            {
-                            replaced_pos = x - i;
-                        }
-                        else { break; }
-                    }
-
-                    if (replaced_pos == x) { continue; } // Если изменяемая координата - текущая, то пропускаем (код ниже не выполнится)
-
-
-                    //if (nums[replaced_pos] == nums[x] && !busy[replaced_pos]) // Произошло слияние, а не просто сдвиг
-                    if (nums[replaced_pos] == nums[x]) // Произошло слияние, а не просто сдвиг
-                    {
-                        nums[replaced_pos] *= 2;
-                        //busy[replaced_pos] = true;
-                        blocked[replaced_pos] = true;
-                    }
-                    else { nums[replaced_pos] = nums[x]; }
-                    nums[x] = 0;
-                    //busy[x] = false;
-                }
-                break;
-        }
-    }
-
-    return nums;
-}
-
 public class ShiftableField
 {
     private int[,] field;
@@ -118,7 +57,23 @@ public class ShiftableField
     public ShiftableField(int[,] _field)
     { field = _field; }
     
-    
+    //
+    // Выполняет ряд сдвигов матрицы
+    //
+    public int[,] ShiftFieldInDirections(int[,] field, List<string> directions)
+    {
+        int[,] new_field = field;
+
+        foreach (string dir in directions)
+        {
+            new_field = MoveFieldInDir(field, dir);
+            //Console.WriteLine(dir + "\n" + GetMatrixInText(field.Field));
+        }
+
+        return new_field;
+    }
+
+
     //
     // Сдвигает всю матрицу
     //
@@ -244,10 +199,11 @@ public class Converter
         {
             for (int x = 0; x < 4; x++)
             {
-                text += field[x, y].ToString() + " ";
+                text += field[x, y].ToString();
+                if (x != 3) { text += " "; }
             }
 
-            text += "\r\n";
+            if (y != 3) { text += "\r\n"; }
         }
 
         return text;
