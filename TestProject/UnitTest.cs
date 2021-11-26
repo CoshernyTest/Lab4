@@ -42,9 +42,9 @@ namespace TestProject
 
             string expected = "" +
                 "4 0 0 0\r\n" +
-                "0 0 0 0\r\n" +
-                "0 0 0 0\r\n" +
-                "0 0 0 0";
+                "0 0 3 0\r\n" +
+                "0 0 3 0\r\n" +
+                "0 0 3 0";
 
             ShiftableField field = new ShiftableField(Converter.GetTextToShiftableFieldField(input.Split("\r\n")));
             field.Field = field.ShiftFieldInDirections(field.Field, dirs_list);
