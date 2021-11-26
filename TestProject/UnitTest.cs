@@ -86,7 +86,7 @@ namespace TestProject
                 "2 0 2 0\r\n" +
                 "1 1 1 1\r\n" +
                 "0 4 0 8";
-            List<string> dirs_list = new List<string> { "R"};
+            List<string> dirs_list = new List<string> { "R" };
 
             string expected = "" +
                 "0 0 0 0\r\n" +

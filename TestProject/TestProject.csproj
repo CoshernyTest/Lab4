@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Babich_Lab4_2048\Babich_Lab4_2048.csproj" />
+    <ProjectReference Include="..\Babich_Lab4_2048\Babych_Lab4_2048.csproj" />
   </ItemGroup>
 
 </Project>
