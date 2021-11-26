@@ -42,9 +42,9 @@ namespace TestProject
 
             string expected = "" +
                 "4 0 0 0\r\n" +
-                "0 0 3 0\r\n" +
-                "0 0 3 0\r\n" +
-                "0 0 3 0";
+                "0 0 0 0\r\n" +
+                "0 0 0 0\r\n" +
+                "0 0 0 0";
 
             ShiftableField field = new ShiftableField(Converter.GetTextToShiftableFieldField(input.Split("\r\n")));
             field.Field = field.ShiftFieldInDirections(field.Field, dirs_list);
@@ -86,7 +86,7 @@ namespace TestProject
                 "2 0 2 0\r\n" +
                 "1 1 1 1\r\n" +
                 "0 4 0 8";
-            List<string> dirs_list = new List<string> { "R"};
+            List<string> dirs_list = new List<string> { "R" };
 
             string expected = "" +
                 "0 0 0 0\r\n" +
